@@ -1,0 +1,69 @@
+
+<div class="card-center-1">
+	<a href="#/drug"><i class="fa fa-arrow-left btn btn-simple"> &nbsp;Back</i></a>
+</div>
+
+<!--<div class="font-1_4 col-md-6 col-sm-12 pl-0">
+	<strong>Search result for:</strong>
+	<div ng-repeat="drug in criteria" class="pt-1 font-1_1">{{drug.name}}</div> 
+	<input type="text" class="form-control" placeholder="Filter NAME or ADDRESS" ng-model="drugFilter.name">
+
+</div>-->
+<div class="card p-1 card-center-1">
+	<div class="form-inline">
+		<strong class="font-1_2">Search result for:</strong>
+		<span ng-repeat="drug in criteria" style="display:inline-block">{{drug.name}},</span> 
+		
+	</div>
+	<hr>
+
+	<div>
+		<div class="col-md-7 pb-1">
+			<input type="text" class="form-control" placeholder="Filter by center name, address or city" ng-model="drugFilter.name">
+		</div>
+		
+		<section class="p-1 row" ng-repeat ="center in drugResult.full | filter : drugFilter.name | orderBy: 'addBy'">			
+			<div class="col-md-7 col-lg-7">
+			<small ng-bind-html='getStr(center.str,center.addBy)'></small> 
+			<br>
+			<strong class="font-1_2">{{center.name}}</strong>
+			<address style="margin-bottom: 5px">{{center.address}}
+				<span>{{center.city}}</span>
+				<span>{{center.country}}</span>
+			</address>		
+			<i class="fa fa-phone"> {{center.phone}}</i> &nbsp;
+			<!--<b ng-if="center.status" class="text-primary">online</b> <span ng-if="!center.status" class="text-danger">offline</span>-->
+			</div>
+			<br>
+			<div class="col-md-5 col-lg-5 p-1">
+				<!--<i class="fa fa-user btn btn-simple btn-sm" style="cursor:pointer;" title="View {{center.name}} profile" ng-click="toViewProfile(center.id)"></i>--> <i class="fa fa-comment btn btn-neutral btn-sm" style="cursor:pointer;" title="Send message to {{center.name}} " ng-click="sendChat(center,center.str)"></i> 
+				 <i class="fa fa-motorcycle btn btn-neutral btn-sm" style="cursor:pointer;" title="request courier delivery " ng-click="courier(center)" ng-if="checkLogIn.typeOfUser !== 'Pharmacy'"> </i>
+				<i class="fa fa-share btn btn-neutral btn-sm" style="cursor:pointer;" title="Forward to {{center.name}}" ng-click="toForward(center)"></i>
+			</div> 
+		</section>
+		<section class="p-1 row" ng-repeat="center in drugResult.less | filter : drugFilter.name | orderBy: 'addBy'">
+				<div class="col-md-7 col-lg-7">
+					<small ng-bind-html='getStr(center.str,center.addBy)'></small> 
+					<small style="text-decoration:line-through">{{notStr(center.notFound)}}</small><br>
+					<strong class="font-1_2">{{center.name}}</strong>
+					<address style="margin-bottom: 5px">{{center.address}}
+						<span>{{center.city}}</span>
+						<span>{{center.country}}</span>
+					</address>					
+					<i class="fa fa-phone">  {{center.phone}}</i>
+					<!--<b ng-if="center.status" class="text-primary">online</b> <span  ng-if="!center.status" class="text-danger">offline</span>-->
+				</div>
+				<br>
+				<div class="col-md-5 col-lg-5 p-1">
+				<!--<i class="fa fa-user btn btn-simple btn-sm" style="cursor:pointer;" title="View {{center.name}} profile" ng-click="toViewProfile(center.id)"></i>--> <i class="fa fa-comment btn btn-neutral btn-sm" style="cursor:pointer;" title="Send message to {{center.name}} " ng-click="sendChat(center,center.str)"></i> 
+					<i class="fa fa-motorcycle btn btn-neutral btn-sm" style="cursor:pointer;" title="request courier delivery" ng-click="courier(center)" ng-if="checkLogIn.typeOfUser !== 'Pharmacy'"></i>
+					 <i class="fa fa-share btn btn-neutral btn-sm" style="cursor:pointer;" title="Forward to {{center.name}}" ng-click="toForward(center)"></i>
+				</div> 
+				<div class="clearfix"></div>
+			
+		</section>
+	</div>
+</div>
+<div style="height: 200px">
+	
+</div>

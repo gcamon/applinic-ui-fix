@@ -1,0 +1,27 @@
+<div class="tg-widget p-2 card-center-1 card tg-widget-doctor">
+   
+    <div class="row">        
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h5 style="font-weight: 100;padding: 10px 5px;width: 30%;border-bottom: 1px solid rgba(0,0,0,0.3)"> Edit Profile </h5>
+            <form class="form-group" ng-submit="sendUpdate()" style="width: 60%">
+                <div  class="p-1">
+                    <input type="text" placeholder="Center Name" class="form-control" name="" ng-model="centerInfo.name">                    
+                </div>
+                 <div  class="p-1">
+                    <input type="text" placeholder="Center Address" class="form-control" name="" ng-model="centerInfo.address">                    
+                </div>
+                <div  class="p-1">
+                    <input type="text" placeholder="Center City" class="form-control" name="" ng-model="centerInfo.city">                    
+                </div>
+                <div  class="p-1">
+                    <input type="text" placeholder="Center Country" class="form-control" name="" ng-model="centerInfo.country">                    
+                </div>
+
+                <div  class="p-1">
+                    <button  class="btn btn-danger"> <i class="fa fa-spinner fa-pulse fa-1x fa-fw" style="color:#fff" ng-if="loading"></i> {{(status) ? "Updated successfully!" : 'Submit' }}</button>                    
+                </div>
+            </form>
+        </div>
+    </div>
+                             
+</div>

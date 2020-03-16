@@ -1,0 +1,115 @@
+<div class="card p-2 card-center-1">
+	<h4 class="pt-0 pl-0">Link DICOM Study</h4>
+	<hr>
+	<p style="background-color: #d7dde4;padding: 10px">'Link DICOM Study' enables you connect a study uploaded to Applinic online DICOM PACs server to its web and mobile viewer (If you have not done that already) for remote sharing, viewing and reporting of studies with Applinic default or your center's template. The Remote PACS details will be shown after you have completed the fields below and clicked the 'Link Study' button.</p>
+	<form class="col-md-10" ng-submit="addStudy()" ng-if="!isSuccess">
+		
+		<label>Patient Names *</label><br>
+		<input type="text" name="" placeholder="Name" required class="form-control" ng-model="station.patientName"><br>
+		<label>Patient's Age * </label><br>
+		<input type="text" name="" placeholder="Patient age" ng-model="station.patientAge" required class="form-control"><br>
+		<label>Patient's Sex * </label><br>
+		<select ng-model="station.patientSex" required class="form-control">
+			<option value="" selected="true" disabled="disabled">_select</option>
+			<option value="Male"> Male</option>
+			<option value="Female"> Female</option>
+		</select><br>
+		
+		<label>Patient's Phone Number * </label><br>
+		<input type="text" name="" placeholder="Phone" ng-model="station.patientPhone" required class="form-control"><br>
+		<label>Patient's Email Address (If any) </label><br>
+		<input type="text" name="" placeholder="Email" ng-model="station.patientEmail" class="form-control"><br>
+		
+		<hr>
+		<label>Name of Study (investigation) *</label><br>
+		<input type="text" name="" placeholder="Name" required class="form-control" ng-model="station.studyName"><br>
+		<label>Indication/Clinical Summary *</label><br>
+		<textarea placeholder="Write..." required class="form-control pl-1" ng-model="station.clinicalSummaryIndication" style="height: 70px!important"></textarea><br>	
+
+		<label>Radiographer's Remark</label><br>
+		<textarea placeholder="Write..." class="form-control pl-1" ng-model="station.remark" style="height: 70px!important"></textarea><br>
+		
+		<label>Date of Study *</label><br>
+		<input type="date" name="" placeholder="Date of study" required class="form-control" ng-model="station.studyDate"><br>
+		<!--<label ng-if="!station.dicom_enterprise">Type of Study * </label><br>
+		<select class="form-control" ng-model="station.type" required ng-if="!station.dicom_enterprise">
+			
+			<option value="" selected="true" disabled="disabled">_select</option>
+			<option value="CT/MRI" selected="selected">CT/MRI/PET/SPECT - {{toCurrency(750)}}</option>
+				<option value="SI">Multiple Routine Views, Contrast Studies and Mammography - {{toCurrency(500)}}</option>
+				<option value="CAPEHS">Single AP or Lateral or Other View of Skull/Spine/Chest/Abdomen/Pelvis/Extremeties - {{toCurrency(250)}}</option>
+		</select><br>-->
+		<label>Locate Study With *</label><br>
+		<label class="custom-control custom-radio">
+			<input type="radio" value="patientID" ng-model="station.locate" class="custom-control-input">
+			<span class="custom-control-indicator"></span>
+			<span class="custom-control-description font-1_1"> <b>Patient ID</b></span>
+		</label>&nbsp;&nbsp;
+		<label class="custom-control custom-radio">
+			<input type="radio" value="studyID" ng-model="station.locate" class="custom-control-input">
+			<span class="custom-control-indicator"></span>
+			<span class="custom-control-description font-1_1"> <b>Study UID</b></span>
+		</label><br><br>
+		<div ng-if="station.locate == 'studyID'">
+			<label>Study UID (Something that looks like 1.2.392.200036.9125.234554....)</label><br>
+			<input type="text" name="" placeholder="Study UID" required class="form-control" ng-model="station.studyID"><br>
+		</div>
+		<div ng-if="station.locate == 'patientID'">
+			<label>Patient ID </label><br>
+			<input type="text" name="" placeholder="Patient ID" required class="form-control" ng-model="station.patientID"><br>
+		</div>
+		<hr>
+		<label>Referring Physician *</label><br>
+		<input type="text" name="" placeholder="Physician names" required class="form-control" ng-model="station.referringPhysician">
+		<div class="col-md-6 p-0">
+			<input type="text" name="" class="form-control" placeholder="Phone number" ng-model="station.referringPhysicianPhone">
+		</div>
+		<div class="col-md-6 p-0">
+			<input type="email" name="" class="form-control" placeholder="Physician email address" ng-model="station.referringPhysicianEmail">
+		</div>
+
+
+		<div class="clearfix"></div><br>
+
+		<label>Choose who writes the report *</label><br>
+		<!--<select ng-model="station.reporter" class="form-control" required="required">
+			<option value="" disabled="disabled" selected="true">_select</option>
+			<option value="{{j.id}}" ng-repeat="j in radiologists" style="font-weight: bold;">{{j.name}} - {{j.designation}}</span>  </option>
+		</select>-->
+		<div ng-repeat="j in radiologists">
+            <label class="custom-control custom-checkbox">
+              {{j.name}} - <span style="font-weight: normal;">{{j.designation}}</span>
+             <input type="checkbox" class="custom-control-input" ng-model="j.selected">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description" style="opacity:0;"></span>
+            </label> 
+        </div>
+		<div ng-show="radiologists.length == 0">You have not added radiologists for your center. <a href="#/add-radiologist" class="text-primary">Add one now?</a>
+		</div>
+
+		<div class="mt-2">
+			<input type="submit" name="" value="Link Study" class="btn btn-danger" ng-if="!loading">
+			<span ng-if="loading">Processing...</span>
+		</div>
+	</form>
+
+	<div ng-if="isSuccess">
+		<h5>Success! Study added to applinic</h5>
+		<!--<p> Please enter the Accession Number below in your work station for the study before capturing.</p>-->
+		<!--<label>{{station.locate}}:</label><br>-->
+		<b style="font-size: 18px">{{studyNum}}</b><br>
+		<p>Enter our remote DICOM details below in your PACs server for transfering.</p>
+		<label>Logical Name: </label> <span>Applinic</span><br>
+		<label>AE Title: </label> <span>{{dicomDetails.aetitle}}</span><br>
+		<label>IP Address: </label> <span>{{dicomDetails.ip_address}}</span><br>
+		<label>Port: </label> <span>{{dicomDetails.port}}</span><br>
+		<br>
+		<span>For those that have already added these details in their PACs server, please note that IP address of our remote DICOM PACs server can change with time. Please always take note of the above IP Address.</span>
+		<div style="text-align: right;">
+			<i class="fa fa-plus btn btn-simple" ng-click="newAcc()"> return</i>
+		</div>
+	</div>	
+</div>
+<div style="height: 200px"></div>
+
+

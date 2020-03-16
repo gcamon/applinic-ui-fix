@@ -1,0 +1,74 @@
+
+<div>
+	<div class="card-center-1">
+		<a href="#{{path}}" class="btn btn-simple"><i class="fa fa-arrow-left"></i> Back</a>
+	</div>
+    <div class="card card-center-1 p-2">
+    <h5 class="mt-0">Complaint</h5>
+	<section class="patient-view-complain" style="line-height: 32px">
+		<div>
+			<label>Ref: </label>
+			<span>{{responders.complaint_id}}</span>
+		</div>
+		<div>
+			<label>Responses: </label>
+			<span class="text-danger"> <b>{{responders.response.length}} {{(response.length > 1 ? 'doctors' : 'doctor')}}</b></span>
+		</div>
+		<div>
+			<label>Date sent: </label>
+			<span>{{responders.sent_date | date : 'mediumDate'}} ( <span am-time-ago="responders.sent_date"></span> )</span>
+		</div>
+	</section>
+	<!--<ul class="nav mb-1">
+		<li ng-repeat = "symptom in responders.symptoms">{{symptom}}</li>
+	</ul>-->
+	<h6 style="color: green;padding: 10px 0">Your complaint as it was reported:</h6>
+	<div style="padding: 15px 15px 0">
+		<label>Symptoms: </label>
+		<span ng-repeat = "symptom in responders.symptoms"> {{symptom}}, </span>
+	</div>
+	<p style="padding: 15px" ng-bind-html="responders.description"></p>
+	
+	<div style="padding: 10px 0" class="text-muted"><b>Responses <span>( {{responders.response.length}} {{(response.length > 1 ? 'doctors' : 'doctor')}} )</span></b></div>
+	<hr>
+	<section ng-repeat = "doc in responders.response" style="position: relative;">
+		<div>
+			<div style="max-width:72px; height: auto;float: left;">
+				<img ng-src="{{doc.doctor_profile_pic_url}}" class="image-fit">
+			</div>			
+			<div style="display: inline-block;float: left;padding-left: 10px">
+				<div class="mb-1" style="line-height: 25px">
+					<strong class="mb-1">{{doc.doctor_name}}</strong>
+					<span style="display: block;" class="text-muted">{{doc.doctor_specialty}}</span>
+					<span style="display: block;" class="">Consultation fee: <b>{{getInCurr(doc)}}</b></span>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div>
+			<span style="display: block;">
+				<!--<b class="text-muted">Introductory Note</b> -->
+				<blockquote style="display: block;max-height: 300px;overflow-y: auto;padding: 5px 10px">
+					{{doc.introductory}}
+				</blockquote>
+			</span>
+
+			<span style="display: block;padding-top: 10px">
+				<a href="" ng-click="acceptWithZeroFee(doc)" ng-if="!holdDocInView.hasComplete && doc.fee == 0 && !doc.loading" class="btn btn-info btn-sm"><b>Accept</b></a> <i class="fa fa-check" ng-if="holdDocInView.hasComplete && doc.fee == 0"> {{holdDocInView.hasComplete}}</i><span ng-if="doc.loading">Processing...</span>&nbsp;&nbsp;
+
+				<a href="" ng-click="acceptDoc(doc)" ng-if="!holdDocInView.hasComplete && doc.fee > 0" class="btn btn-info btn-sm"><b>Accept</b></a> <i class="fa fa-check" ng-if="holdDocInView.hasComplete && doc.fee > 0"> {{holdDocInView.hasComplete}}</i>&nbsp;&nbsp;
+				<!--<a href="" ng-click="declineDoc(doc.doctor_user_id)" class="btn btn-simple btn-sm" style="color: red;">Decline</a>&nbsp;&nbsp;-->
+				<a href="" ng-click="viewDocProfile(doc.doctor_user_id)" style="color: blue;">View profile</a> 
+			</span>
+		</div>
+		<hr class="text-muted" />
+	</section>
+	
+</div>
+</div>
+<div style="height: 300px">
+	
+</div>
+
+
+

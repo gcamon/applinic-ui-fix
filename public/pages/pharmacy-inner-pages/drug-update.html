@@ -1,0 +1,73 @@
+
+<!--<div style="text-align: right">
+	<a href="#/pharmacy/off-service" style="color:#000">Drugs not in store</a>
+</div>
+<div class="all-test-check">
+	<h4>Please unmark any drug you don't have in stock below<h4>
+
+	<h6 style="text-align: center;cursor:pointer">
+		<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="/#collapseSix" aria-expanded="false" aria-controls="collapseSix" style="color:rgba(0,180,0,0.6); font-size: 18px;">List of all drugs</a></h6>
+	<div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+		<div ng-repeat="drug in allDrugs">
+			<input type="checkbox" ng-model="drug.val"><span>{{drug.name}}</span>
+		</div>
+	</div>
+
+	
+	<div style="text-align:center">
+		<button ng-click="saveSelection()">SAVE</button>
+	</div>
+</div>-->
+
+
+<div class="card p-2">
+		<div>
+			<h4 class="p-0">Update Inventory <a class="btn btn-simple btn-sm" href="#/pharmacy/off-service" style="float: right;font-size: 14px"> Unavailable drugs</a></h4>
+			<div class="clearfix"></div>			
+			<span>Please unmark any drug you don't have in stock below. Do remember to save your changes.</span>
+		</div>
+		
+		
+	
+		<div class="row">
+			<div class="col-md-6 pr-1">
+					<input type="text" class="form-control" ng-model="ava" name="" placeholder="Filter list by drug name"><br>
+				<span class="text-danger">*</span> <span>drug(s) you added</span>
+			</div>
+
+			<div class="col-md-6" style="text-align: right;">					
+				<button class="btn btn-success btn-sm" style="margin-top: 7px;" ng-click="saveSelection()" ng-if="!loading">Save changes</button>
+					
+			</div>
+		</div>
+		
+		
+		<div>
+			<div ng-repeat="drug in allDrugs2 | filter: ava | orderBy: 'name'" class="col-md-6 col-sm-12" style="padding-right: 3px;word-wrap: break-word;">
+			<!--<input type="checkbox" ng-model="drug.val"><span></span>-->
+				<label class="custom-control custom-checkbox">   <input type="checkbox" class="custom-control-input" ng-model="drug.val">   <span class="custom-control-indicator"></span>   <span class="custom-control-description font-1_1">{{drug.name}} <sup class="text-danger">{{(checkLogIn.user_id === drug.center_id) ? "*": ""}}</sup></span> </label>
+		  </div>
+		  <div class="clearfix"></div>
+		  <p class="mt-4" style="text-align: center;" ng-if="loading"> <i class="fa fa-spinner fa-pulse fa-1x fa-fw" style="color:orange;font-size: 18px"></i> <b>loading... </b><br> <span>this may take few seconds</span></p>
+		  <div style="text-align: right;">
+				<button class="btn btn-success btn-sm" ng-click="saveSelection()" ng-if="!loading">Save changes</button>
+		  </div>
+		</div>
+
+		<!--<div>
+			<div ng-repeat="drug in allDrugs | filter: ava | orderBy: 'name'">
+			
+			<label class="custom-control custom-checkbox">   <input type="checkbox" class="custom-control-input" ng-model="drug.val">   <span class="custom-control-indicator"></span>   <span class="custom-control-description font-1_1">{{drug.name}}</span> </label>
+		  </div>
+			
+			<div>
+				<button class="btn btn-success pull-right" ng-click="saveSelection()">Save</button>
+			</div>
+		</div>-->
+
+		
+
+
+	
+</div>
+

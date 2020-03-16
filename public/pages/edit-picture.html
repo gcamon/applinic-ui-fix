@@ -1,0 +1,46 @@
+
+
+ 
+
+<div class="container">
+    <div class="card p-2">
+<h5 class="font-1_7" style="border-bottom: 1px solid rgba(0,0,0,0.3);">Edit Profile Picture / Logo</h5>
+    <div class="row">
+        <div class="col-md-3 col-sm-12 text-center">          
+            <img alt="image description"  ng-src="{{userData.profile_pic_url}}" class="img-responsive">
+        </div>
+        <div class=" col-md-8 col-sm-12">  
+           <div>
+         <h5 class="mb-0">Tips:</h5>
+File size must be less than 2mb.<br>
+Picture must be portrait.<br>
+File extensions accepted are jpg, jpeg or png.
+<br><br>
+<label class="custom-file" style="position: relative;">
+  <input type="file" id="file" file-model = "files" class="custom-file-input">
+  
+  <span class="custom-file-control"></span>
+</label>
+<br>
+
+<div class="col-md-4 col-sm-12 pl-0">
+<p style="color:red">{{userData.error}}</p>
+<div ng-if ="progressVisible == true">
+            <div class="percent">{{progress || '100'}}%</div>
+            <div class="progress-bar">
+                <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+              
+           </div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+    
+   
