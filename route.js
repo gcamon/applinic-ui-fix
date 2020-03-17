@@ -12,6 +12,7 @@ let path;
 module.exports = function(app){
 
 	app.get('/',function(req,res){
+		
 		path = "./views/index.html";
 
 		if (fs.existsSync(path)) {
@@ -33,5 +34,5 @@ module.exports = function(app){
 	  	res.redirect('/')
 	  }
 	})
-	
+
 }
