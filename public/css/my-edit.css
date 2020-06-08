@@ -119,6 +119,25 @@ textarea.form-control {
     list-style: none;
 }
 
+
+/* home page */
+
+.bg-dark {
+    background-color: #85CE36 !important;
+}
+
+.mega-dropdown {
+    width: 91rem;
+    color: black;
+    position: absolute;
+    left: -166px;
+    background-color: #85CE36;
+}
+
+.max-width {
+    width: 100rem !important;
+}
+
 .view-animate {
     padding: 10px 0;
     /*height: 600px;to view removed later*/
