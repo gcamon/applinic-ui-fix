@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Shopping cart</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/5d5c57c2c4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet " href="/assets/css/vendor.css ">
+    <link rel="stylesheet " href="/assets/css/app.css ">
+    <link rel="stylesheet " href="/assets/css/now-ui-kit2.css ">
+    <link rel="stylesheet " href="/assets/css/chat.css ">
+    <link rel="stylesheet " href="/assets/css/font-awesome.min.css ">
+    <link rel="stylesheet " href="/assets/css/my-edit.css ">
+    <link rel="stylesheet " href="/assets/css/ngPrint.css ">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans " rel="stylesheet ">
+    <style>
+        .rating {
+            background-color: #85CE36;
+            padding: 4px 9px;
+            color: #fff;
+        }
+        
+        .avail {
+            color: #85CE36;
+        }
+        
+        .card {
+            border: none;
+            border-bottom: 4px solid #85CE36;
+            padding-bottom: 8px;
+        }
+        
+        .thumbnail {
+            margin: 0 auto;
+        }
+        
+        .thumbnail img {
+            padding-top: 16px;
+        }
+        
+        .video-btn button {
+            /* display: inline; */
+        }
+        
+        .p-6 {
+            padding: 6px !important;
+        }
+        
+        .card-body {
+            padding: 0;
+        }
+        
+        .p-10 {
+            padding: 10px;
+        }
+        
+        .badge {
+            position: relative;
+            bottom: 55px;
+            float: right;
+            right: 10px;
+        }
+        
+        #search-wrap {
+            border: 1px solid grey;
+            position: relative;
+            bottom: 13px;
+            z-index: 9999;
+            display: none;
+        }
+        
+        #location:hover #search-wrap {
+            display: block;
+        }
+        
+        body {
+            /* The image used */
+            /* background-image: url("/assets/img/bg4-min.jpg"); */
+            /* Add the blur effect */
+            /* filter: blur(1px); */
+            /* -webkit-filter: blur(1px); */
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .bg-green {
+            color: #85CE36 !important;
+        }
+        
+        .bg-white {
+            background: #fff;
+        }
+        
+        .side-nav {
+            padding: 10px;
+        }
+        
+        .side-sticky {
+            position: sticky;
+            top: 56px;
+        }
+        
+        .sticky-top {
+            z-index: 10;
+        }
+        
+        #doctors-search label {
+            display: block;
+        }
+        
+        .fas,
+        .fab {
+            color: #85CE36;
+        }
+        
+        .drawer-btn {
+            float: left;
+        }
+        /* drawer */
+        
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #85CE36;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        
+        .sidenav a {
+            padding: 8px 8px 0px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        
+        .sidenav a .fas {
+            color: #fff;
+        }
+        
+        #main-wrap {
+            transition: margin-left .5s;
+        }
+        
+        .dropdown-menu {
+            border-radius: 0;
+            border: none;
+        }
+        
+        .navbar-nav .dropdown-menu {
+            position: static;
+            float: none;
+            background: #85CE36;
+            top: 43px;
+        }
+        
+        .bg-aplinic {
+            background-color: #85CE36;
+        }
+        
+        .w-100 {
+            width: 100%;
+        }
+        
+        .panel-heading {
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .panel-heading {
+            padding: 6px 0px;
+        }
+        
+        .panel-title a {
+            padding-left: 6px;
+            color: black;
+        }
+        
+        .panel-body li {
+            padding: 4px 0;
+        }
+        
+        .panel-body li:hover {
+            border-bottom: 1px solid #85CE36;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin-bottom: 0.3rem;
+            margin-top: 0.3rem;
+        }
+        
+        .mt-10 {
+            margin-top: 10px;
+        }
+        
+        .col-sm-4 {
+            border-right: 1px solid #85CE36
+        }
+        
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+        }
+        
+        .price {
+            color: grey;
+            font-size: 22px;
+        }
+        
+        .card button {
+            text-align: center;
+            cursor: pointer;
+            max-width: 100%;
+            font-size: 12px;
+        }
+        
+        .card button:hover {
+            opacity: 1 !important;
+            font-size: 14px;
+            color: inherit;
+        }
+        /* On mouse-over, add a deeper shadow */
+        
+        .card:hover {
+            /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+             */
+            width: 99%;
+        }
+        
+        a {
+            color: inherit;
+        }
+        
+        a:hover {
+            text-decoration: none;
+        }
+        /* flip card */
+        
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 260px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .flip-card-front {
+            background-color: #bbb;
+            color: black;
+        }
+        
+        .flip-card-back {
+            background-color: #85CE36;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-back h1 {
+            border-bottom: 1px solid;
+        }
+        
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+        /* Extra small devices (portrait phones, less than 576px) */
+        
+        @media (max-width: 575.98px) {}
+        /* Small devices (landscape phones, less than 768px) */
+        
+        @media (max-width: 767.98px) {
+            .col-md-9 {
+                background-color: honeydew;
+            }
+            .thumbnail {
+                width: 45%;
+            }
+            .thumbnail img {
+                padding-top: 2PX;
+            }
+            .doctors-profile {
+                text-align: center;
+                border-bottom: 1px solid;
+            }
+            .avail {
+                margin-top: 0 !important;
+            }
+            .card-header {
+                padding: 0.4rem 1.25rem;
+            }
+            .card-header h6:first-child {
+                color: red;
+            }
+            .online {
+                position: absolute;
+                left: 162px;
+            }
+            .form-text {
+                display: none;
+            }
+            #doctors-search .form-group,
+            #doctors-search .form-group label {
+                margin-bottom: 0.1rem;
+            }
+            .drawer-btn {
+                display: none;
+            }
+        }
+        /* Medium devices (tablets, less than 992px) */
+        
+        @media (max-width: 991.98px) {}
+        /* Large devices (desktops, less than 1200px) */
+        
+        @media (max-width: 1199.98px) {}
+    </style>
+</head>
+
+<body>
+    <section id="main-wrap">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#"><span><i class="fas fa-briefcase-medical"></i></span> Book appointment</a>
+            <a href="#"><span><i class="fas fa-clinic-medical"></i></span> Pharmacy</a>
+            <a href="#"><span><i class="fas fa-briefcase-medical"></i></span> Diagnostics</a>
+            <a href="#"><span><i class="fas fa-briefcase-medical"></i></span> Read Health Articles</a>
+            <a href="#"><span><i class="fas fa-briefcase-medical"></i></span> Read Health Articles</a>
+        </div>
+        <div class="jumbotron text-center" style="margin-bottom:0">
+            <div class="drawer-btn">
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+            </div>
+            <h1>Aplinic services</h1>
+            <p>We re here for you!</p>
+        </div>
+        <section class="sticky-top bg-white">
+            <div class="container">
+                <div class="row" id="doctors-search">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="location1"><span class="mr-2"><i class="fas fa-capsules"></i></span>Search for medicines, Health, Products And more.. </label>
+                            <select class="selectpicker show-tick" data-live-search="true" data-width="100%">
+                                <option data-tokens="enugu" data-icon="fa-heart">Drugs</option>
+                                <option data-divider="true"></option>
+                                <option data-tokens="mustard">Ero 150 mg Tablets</option>
+                                <option data-divider="true"></option>
+                                <option data-tokens="frosting">Drop Ear drops</option>
+                              </select>
+                            <small class="form-text text-muted">Please key in drugs details.</small>
+                        </div>
+                    </div>
+                    <!-- 2nd col -->
+                    <div class="col-md-4">
+                        <div>
+                            <label for="location1"><span class="mr-2"><i class="fas fa-cart-plus"></i></span>View your Shopping List.. </label>
+                            <button type="button" class="btn btn-outline-success bg-white"><span class="mr-2"><i class="fas fa-cart-plus"></i></span> VIEW CART</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <nav class="navbar navbar-expand-sm bg-aplinic navbar-dark">
+            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+             <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class=" container collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Family Care
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownfilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Fitness & Wellness
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownRelevance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Hair Care
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownRelevance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Lip Care
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownRelevance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Sexaul Wellness
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownRelevance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Woman's Care 
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownRelevance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Baby's Care
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownRelevance">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        <div class="main" style="width:95%; margin: 0 auto; margin-top:30px">
+            <section>
+                <p><strong>Home</strong> > <span>skin care</span></p>
+            </section>
+            <div>
+                <h4><strong>CATEGORIES</strong></h4>
+            </div>
+            <div class="row">
+                <!-- col 4 -->
+                <div class="col-sm-4">
+                    <div class="container side-sticky">
+                        <div class="row">
+                            <section class="bg-white w-100">
+                                <div class="bg-image">
+                                    <!-- collapse -->
+                                    <div class="container">
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <i class="fas fa-angle-right"></i><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Family Care</a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse in">
+                                                    <ul class="panel-body">
+                                                        <li>Senior Care</li>
+                                                        <li>Women's Care</li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <i class="fas fa-angle-right"></i><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Fitness & Wellness</a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse">
+                                                    <ul class="panel-body">
+                                                        <li>Protein Supplements</li>
+                                                        <li>Mass Gainers</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- fitness & wellness -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <i class="fas fa-angle-right"></i><a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Skin Care</a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse">
+                                                    <ul class="panel-body">
+                                                        <li>Acne Care</li>
+                                                        <li>Body And bath</li>
+                                                        <li>Face Wash And Cleansers</li>
+                                                        <li>Skin Care Suppliments</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- hair care -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <i class="fas fa-angle-right"></i><a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Hair Care</a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse">
+                                                    <ul class="panel-body">
+                                                        <li>Antidandruff</li>
+                                                        <li>Antihairloss</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- col 8 -->
+                <div class="col-sm-8">
+                    <!-- shop by category -->
+                    <section>
+                        <h5>Shop by Category</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div class="flip-card">
+                                        <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                                <img src="/assets/img/mb5.jpg" alt="Avatar" style="width:100%;">
+                                            </div>
+                                            <div class="flip-card-back bg-aplinic">
+                                                <h1 style="border-bottom: 1px solid;">ACNE CARE</h1>
+                                                <p>Skin care Product</p>
+                                                <p>works on all conditions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div class="flip-card">
+                                        <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                                <img src="/assets/img/mb5.jpg" alt="Avatar" style="width:100%;">
+                                            </div>
+                                            <div class="flip-card-back bg-aplinic">
+                                                <h1>ACNE CARE</h1>
+                                                <p>Skin care Product</p>
+                                                <p>works on all conditions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div class="flip-card">
+                                        <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                                <img src="/assets/img/mb5.jpg" alt="Avatar" style="width:100%;">
+                                            </div>
+                                            <div class="flip-card-back bg-aplinic">
+                                                <h1>ACNE CARE</h1>
+                                                <p>Skin care Product</p>
+                                                <p>works on all conditions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>Best Sellers</h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <a href="#">
+                                        <img src="/assets/img/avatar.jpg" alt="Avatar" style="width:100%">
+                                        <div class="container">
+                                            <h5><b>Oilatum Soap Bar 100g</b></h5>
+                                            <p class="prce">$1356.40</p>
+                                            <button type="button" class="btn btn-outline-success bg-white">1 PERSONAl</button>
+                                            <button type="button" class="btn btn-outline-success bg-white">ADD</button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <a href="#">
+                                        <img src="/assets/img/avatar.jpg" alt="Avatar" style="width:100%">
+                                        <div class="container">
+                                            <h5><b>Oilatum Soap Bar 100g</b></h5>
+                                            <p class="prce">$1356.40</p>
+                                            <button type="button" class="btn btn-outline-success bg-white">1 PERSONAl</button>
+                                            <button type="button" class="btn btn-outline-success bg-white">ADD</button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <a href="#">
+                                        <img src="/assets/img/avatar.jpg" alt="Avatar" style="width:100%">
+                                        <div class="container">
+                                            <h5><b>Oilatum Soap Bar 100g</b></h5>
+                                            <p class="prce">$1356.40</p>
+                                            <button type="button" class="btn btn-outline-success bg-white">1 PERSONAl</button>
+                                            <button type="button" class="btn btn-outline-success bg-white">ADD</button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="jumbotron text-center mt-10" style="margin-bottom:0">
+                <p>Footer</p>
+            </div>
+        </div>
+    </section>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "300px";
+            document.getElementById("main-wrap").style.marginLeft = "300px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.6)";
+
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main-wrap").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }
+    </script>
+</body>
+
+</html>
